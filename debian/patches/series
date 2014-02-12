@@ -1,6 +1,5 @@
 man-slapd 
 evolution-ntlm
-add-autogen-sh
 slapi-errorlog-file 
 ldapi-socket-place 
 wrong-database-location 
@@ -9,9 +8,15 @@ sasl-default-path
 libldap-symbol-versions
 getaddrinfo-is-threadsafe
 do-not-second-guess-sonames
-manpage-tlscyphersuite-additions
+contrib-modules-use-dpkg-buildflags
 smbk5pwd-makefile
 autogroup-makefile
-issue-6534-patch
 ldap-conf-tls-cacertdir
-service-operational-before-detach
+add-tlscacert-option-to-ldap-conf
+fix-ftbfs-binutils-gold
+fix-build-top-mk
+no-AM_INIT_AUTOMAKE
+switch-to-lt_dlopenadvise-to-get-RTLD_GLOBAL-set.diff
+no-bdb-ABI-second-guessing
+heimdal-fix
+bdb-deadlock.patch

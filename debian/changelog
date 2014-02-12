@@ -1,3 +1,154 @@
+openldap (2.4.31-1+nmu2) unstable; urgency=high
+
+  * Non-maintainer upload.
+  * No-change rebuild in a clean environment
+
+ -- Jonathan Wiltshire <jmw@debian.org>  Tue, 23 Apr 2013 13:10:00 +0100
+
+openldap (2.4.31-1+nmu1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Avoid deadlocks in back-bdb that truncate slapcat output (closes: #673038).
+
+ -- Michael Gilbert <mgilbert@debian.org>  Tue, 16 Apr 2013 03:35:31 +0000
+
+openldap (2.4.31-1) unstable; urgency=low
+
+  * New upstream release.
+    - Fixes a denial of service attack, CVE-2012-1164, when using the rwm
+      overlay.  Closes: #663644.
+    - Fixes a bug with ldap_result always returning -1 when called from
+      sssd.  Closes: #666230.
+    - Fix a build failure on armel due to unaligned memory access.
+      Closes: #677158.
+  * Incorporate NMU (thanks, Julien Cristau, Mattias Ellert):
+    - Disable the mdb backend on non-Linux, it looks like it doesn't work
+      with linuxthreads (closes: #654824).
+    - Backport fix for shell backend configuration.  Closes: #662940.
+
+  [ Peter Marschall ]
+  * debian/slapd.scripts-common: avoid grep warnings
+  * debian/patches/heimdal-fix: fix arguments of
+    hdb_generate_key_set_password().  Closes: #664930
+
+  [ Steve Langasek ]
+  * debian/patches/contrib-modules-use-dpkg-buildflags: pass CFLAGS to
+    contrib builds.  Thanks to Simon Ruderich <simon@ruderich.org>.
+    Closes: #663724.
+
+ -- Steve Langasek <vorlon@debian.org>  Wed, 27 Jun 2012 03:27:34 +0000
+
+openldap (2.4.28-1) unstable; urgency=low
+
+  * New upstream release.
+    - Fixes CVE-2011-4079.  Closes: #647610.
+    - Fixes support for proxy authorization with SASL-GSSAPI.
+      Closes: #608815.
+    - Drop patch service-operational-before-detach, which came from upstream.
+    - Drop patch fix-its6898-locking-issue, included upstream.
+    - Refresh other patches as needed.
+  * debian/slapd.scripts-common: quote the argument to slappasswd, to cope
+    with shell characters in the string.  Thanks to Nicolai Ehemann
+    <en@englightened.de> for the patch.  Closes: #635931.
+  * Install ldif.h in libldap2-dev, now that it's been blessed upstream.
+    Closes: #644985.
+  * debian/patches/no-bdb-ABI-second-guessing: don't force an exact match on
+    the upstream version of libdb; this is redundant with our packaging
+    system, and causes spurious errors when there's a non-ABI-breaking
+    BDB upstream release.  Closes: #651333.
+  * Build-conflict with the ancient autoconf2.13, which is incompatible with
+    dh-autoreconf.  (Maybe dh-autoreconf itself should conflict with it?)
+    Closes: #651598.
+
+  [ Updated debconf translations ]
+  * Dutch, thanks to Jeroen Schot <schot@A-Eskwadraat.nl>.  Closes: #651400.
+
+ -- Steve Langasek <vorlon@debian.org>  Thu, 05 Jan 2012 06:07:11 +0000
+
+openldap (2.4.25-4) unstable; urgency=low
+
+  * Drop explicit depends on libdb4.8, since we're now linking against
+    libdb5.1.  Thanks to Peter Marschall for catching.  Closes: #621403
+    again.
+  * Rebuild against cyrus-sasl2 2.1.25.  Closes: #628237.
+  * Use dh_autoreconf instead of a locally-patched autogen.sh.
+  * debian/patches/no-AM_INIT_AUTOMAKE: don't use AM_INIT_AUTOMAKE macro
+    when we aren't using automake.
+  * Convert debian/rules to dh(1).
+  * use DEB_CFLAGS_MAINT_APPEND with appropriate versioned dependency on
+    debhelper and dpkg-dev, so we can pick up dpkg-buildflags for our
+    policy-mandated flags - as well as our security-enhancing ones!
+    Closes: #644427.
+  * Also set hardening=+pie,+bindnow buildflags options for maximum
+    security, since this is a security-sensitive daemon dealing with
+    untrusted input.  Ubuntu has been building with these flags for a
+    while via hardening-wrappers, so the change is presumed safe.
+  * Drop debian/check_config.  The upstream configure script now enforces
+    --with-cyrus-sasl, so there's no need for a second check.
+  * debian/po/es.po: tweak an ambiguous string in the Spanish debconf
+    translation, noticed in response to a submitted Catalan translation    
+  * debian/patches/switch-to-lt_dlopenadvise-to-get-RTLD_GLOBAL-set.diff:
+    Switch to lt_dlopenadvise() so back_perl can be opened with RTLD_GLOBAL.
+    Thanks to Jan-Marek Glogowski <jan-marek.glogowski@muenchen.de> for the
+    patch.  Closes: #327585.
+
+  [ Updated debconf translations ]
+  * Catalan, thanks to Innocent De Marchi <tangram.peces@gmail.com>.
+    Closes: #644274.
+
+ -- Steve Langasek <vorlon@debian.org>  Tue, 18 Oct 2011 01:08:34 +0000
+
+openldap (2.4.25-3) unstable; urgency=low
+
+  * Brown paper bag: really fix the .links.in handling, so we don't generate
+    broken /usr/lib/${DEB_HOST_MULTIARCH} dirs.
+
+ -- Steve Langasek <vorlon@debian.org>  Mon, 15 Aug 2011 09:50:37 +0000
+
+openldap (2.4.25-2) unstable; urgency=low
+
+  [ Matthijs Möhlmann ]
+  * Change to bdb 5.1 (Closes: #621403)
+  * Add note to ldap-utils package how to unfold lines. (Closes: #530519)
+    (Thanks to Peter Marschall and Javier Barroso)
+
+  [ Steve Langasek ]
+  * Acknowledge NMU for bug #596343; thanks to Thijs Kinkhorst for the fix!
+  * Bump to compat level 7, so we don't have to spell out debian/tmp in
+    every single .install file
+  * Build for multiarch.
+
+ -- Steve Langasek <vorlon@debian.org>  Sun, 14 Aug 2011 23:17:09 -0700
+
+openldap (2.4.25-1.1) unstable; urgency=low
+
+  * Non-maintainer upload to fix RC bug.
+  * Fix "dpkg-reconfigure slapd". Closes: #596343
+
+ -- Thijs Kinkhorst <thijs@debian.org>  Tue, 31 May 2011 11:57:29 +0200
+
+openldap (2.4.25-1) unstable; urgency=low
+
+  * New upstream version (Closes: #617606, #618904, #606815, #608813)
+    - Fixes CVE-2011-1024, CVE-2011-1025, CVE-2011-1081
+    - slapd server process frequently hangs during everyday usage is fixed in
+      newer versions of openldap according to the bug submitter
+  * Refresh all patches
+  * Remove manpage-tlscyphersuite-additions, applied upstream
+  * Remove issue-6534-patch, applied upstream
+  * Add Slovak translation, thanks Slavko <linux@slavino.sk> (Closes: #608699)
+  * Add debian specific patch for ldap.conf. Add TLS_CACERT option and set it
+    by default to /etc/ssl/certs/ca-certificates.crt (Closes: #555409, #616703)
+  * Add patch to fix a FTBFS with binutils-gold (Closes: #555867)
+  * Add slapschema, just hardlink it (Closes: #601569)
+  * Update patch service-operational-before-detach (Closes: #616164, #598361)
+  * Add ldif_* symbols to libldap-2.4-2
+  * Add upstream patch for a locking issue in libldap_r
+  * Fix build failure, use @SHELL@ instead of hardcoded /bin/sh (build/top.mk)
+    (Closes: #621925)
+
+ -- Matthijs Möhlmann <matthijs@cacholong.nl>  Mon, 11 Apr 2011 22:10:14 +0200
+
 openldap (2.4.23-7) unstable; urgency=low
 
   * Updated vietnamese translation, thanks Clytie Siddall
