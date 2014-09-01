@@ -1,16 +1,44 @@
-openldap (2.4.31-1+nmu2) unstable; urgency=high
+openldap (2.4.39-1.1) unstable; urgency=high
 
-  * Non-maintainer upload.
-  * No-change rebuild in a clean environment
+  * Non-maintainer upload by the Security Team.
+  * Fix CVE-2013-4449: reference counting logic issue (closes: #729367).
 
- -- Jonathan Wiltshire <jmw@debian.org>  Tue, 23 Apr 2013 13:10:00 +0100
+ -- Michael Gilbert <mgilbert@debian.org>  Sat, 09 Aug 2014 09:26:51 +0000
 
-openldap (2.4.31-1+nmu1) unstable; urgency=medium
+openldap (2.4.39-1) unstable; urgency=low
 
-  * Non-maintainer upload.
-  * Avoid deadlocks in back-bdb that truncate slapcat output (closes: #673038).
+  [ Peter Marschall ]
+  * debian/patches/wrong-database-location: fix database location in
+    doc/man/man5/slapd-mdb.5
+  * debian/configure.options: add info on --enable-mdb
 
- -- Michael Gilbert <mgilbert@debian.org>  Tue, 16 Apr 2013 03:35:31 +0000
+  [ Russ Allbery ]
+  * Remove myself from Uploaders.
+
+  [ Steve Langasek ]
+  * Remove Stephen Frost from Uploaders, per discussion with him.  Thanks for
+    your contributions, Stephen!
+  * Adjust dh_autoreconf usage to update all config.sub/config.guess
+    instances in the source, so that we can be forwards-compatible with new
+    ports.  Thanks to Colin Watson <cjwatson@ubuntu.com> for the patch.
+    Closes: #725824.
+  * Add Timo to Uploaders.
+  * Update Vcs-* fields to point at the new git repo; thanks to Timo for
+    driving this migration!
+  * Rebuild against db5.3, with a corresponding dump/restore of the database
+    on upgrade.  Closes: #738641.
+
+  [ Timo Aaltonen ]
+  * contrib-modules-use-dpkg-buildflags, autogroup-makefile,
+    smbk5pwd-makefile:
+    - Updated for current upstream.
+  * Refresh patches to apply cleanly.
+  * rules: Use dpkg-parsechangelog to determine the upstream version for
+    get-orig-source.
+  * source: Add lintian overrides for non-transatable internal
+    templates.
+
+ -- Steve Langasek <vorlon@debian.org>  Mon, 17 Mar 2014 15:27:31 -0700
 
 openldap (2.4.31-1) unstable; urgency=low
 
