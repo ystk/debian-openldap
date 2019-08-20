@@ -29,3 +29,9 @@ ITS8003-fix-off-by-one-in-LDIF-length.patch
 ITS-8655-paged-results-double-free.patch
 ITS-8648-check-result-of-ldap_int_initialize-in-ldap.patch
 ITS-8648-init-SASL-library-in-global-init.patch
+ITS-9038-restrict-rootDN-proxyauthz-to-its-own-DBs.patch
+ITS-9038-Update-test028-to-test-this-is-enforced.patch
+ITS-9038-Fix-typo-in-test-script.patch
+ITS-9038-Another-test028-typo.patch
+ITS-9052-zero-out-sasl_ssf-in-connection_init.patch
+ITS-8964-Do-not-free-original-filter.patch
