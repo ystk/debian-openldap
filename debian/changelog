@@ -1,3 +1,11 @@
+openldap (2.4.40+dfsg-1+deb8u10) jessie-security; urgency=high
+
+  * Team upload for ELTS.
+  * Fix slapd assertion failure in Certificate List Exact
+    Assertion validation. (ITS#9454) (CVE-2021-27212)
+
+ -- Utkarsh Gupta <utkarsh@debian.org>  Mon, 15 Feb 2021 02:10:59 +0530
+
 openldap (2.4.40+dfsg-1+deb8u9) jessie-security; urgency=high
 
   * Non-maintainer upload by the ELTS team.
